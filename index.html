@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卓星网络科技</title>
+      <style>
+        /* 设置网页的基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* 禁用滚动条 */
+        }
+
+        /* 背景图片全屏显示 */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://dailybing.com/api/v1') no-repeat center center fixed;
+            background-size: cover;
+            z-index: -1;
+            filter: brightness(0.7); /* 默认将背景稍微变暗，避免文字遮挡 */
+        }
+
+
+   /* 顶部提示样式 */
+    .top-message {
+        position: fixed;
+        top: 10px; /* 距离顶部的间距 */
+        left: 50%; /* 水平居中 */
+        transform: translateX(-50%); /* 确保完全居中 */
+        background-color: rgba(0, 255, 150, 0.6); /* 半透明青绿色背景 */
+        color: white; /* 白色文字 */
+        text-align: center;
+        padding: 4px 12px; /* 减少内边距，让边框与文字更贴合 */
+        font-size: 14px; /* 调整字体大小，减小整体占用空间 */
+        font-weight: bold;
+        border-radius: 3px; /* 圆角更小，紧凑效果 */
+        z-index: 1;
+        border: 3px solid rgba(0, 255, 150, 1); /* 青绿色边框 */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);  /* 增加阴影效果 */
+        transition: background-color 0.3s ease, transform 0.3s ease; /* 平滑过渡效果 */
+    }
+
+    /* 鼠标悬停时效果 */
+    .top-message:hover {
+        background-color: rgba(0, 200, 120, 1); /* 鼠标悬停时背景颜色变深 */
+        transform: translateX(-50%) scale(1.05); /* 保持水平居中，同时稍微放大 */
+    }
+
+
+
+        /* 主容器，居中显示内容 */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* 确保内容至少占满视口 */
+            text-align: center;
+            color: white;
+        }
+
+        /* 半透明的PNG图像 */
+        .transparent-image {
+            width: 60%; /* 根据需要调整图像宽度 */
+            max-width: 500px;
+            opacity: 0.8; /* 设置半透明效果 */
+            margin-bottom: 30px; /* 图像下方的间距 */
+        }
+
+        /* 信息文本样式 */
+        .info {
+            font-size: 16px;
+            margin-bottom: 20px; /* 保证信息和备案号之间有间距 */
+        }
+
+        .info p {
+            margin: 10px 0;
+        }
+
+        .info span {
+            font-weight: bold;
+        }
+
+        /* 为文字加阴影 */
+        .info p, .info a {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 黑色阴影 */
+            color: white; /* 默认文字为白色 */
+        }
+
+        /* 链接样式 */
+        .info a {
+            color: #FF9900; /* 设置备案号链接为橙色 */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* 经营范围的字体大小调整 */
+        .info .business-scope {
+            font-size: 14px; /* 默认字体大小 */
+            margin-top: 10px;
+        }
+
+        /* 免责声明样式 */
+        .disclaimer {
+            background-color: rgba(255, 0, 0, 0.8); /* 红色背景，半透明 */
+            color: white;
+            padding: 20px;
+            font-size: 18px;  /* 增大字体 */
+            margin-top: 30px;
+            border-radius: 10px;
+            width: 80%;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);  /* 增加阴影效果 */
+            border: 3px solid red;  /* 红色边框 */
+            transition: all 0.3s ease;
+        }
+
+        /* 免责声明悬浮效果 */
+        .disclaimer:hover {
+            background-color: rgba(255, 0, 0, 1);  /* 鼠标悬停时背景变深 */
+            transform: scale(1.05);  /* 鼠标悬停时稍微放大 */
+        }
+
+        /* 响应式调整样式 */
+        @media (max-width: 768px) {
+            .transparent-image {
+                width: 80%;
+            }
+
+            .info {
+                font-size: 14px;
+            }
+
+            .info .business-scope {
+                font-size: 12px;
+            }
+
+            .disclaimer {
+                font-size: 16px; /* 在中等屏幕下，适当减小字体 */
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* 更小屏幕时的调整 */
+            .transparent-image {
+                width: 90%;
+            }
+
+            .info {
+                font-size: 12px;
+            }
+
+            .info .business-scope {
+                font-size: 11px; /* 更小的字体大小 */
+            }
+
+            .disclaimer {
+                font-size: 14px;  /* 在小屏幕下，适当减小字体 */
+                width: 95%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 顶部域名提示 -->
+    <div class="top-message" id="domain-message">
+        当前访问的域名是：<span id="current-domain"></span>
+    </div>
+
+    <!-- 背景图片 -->
+    <div class="background" id="background"></div>
+
+    <!-- 主内容容器 -->
+    <div class="main-container">
+        <!-- 半透明PNG图像 -->
+        <img src="/wxjbb.png" alt="无限进步" class="transparent-image">
+        <!-- 免责声明 -->
+        <div class="disclaimer">
+           <h2>免责声明</h2>
+           <p>本域名提供二级域名技术支持，域名使用者的行为均与本站无关。如遇诈骗或欺诈，请立即截图此页面后联系我们，我们将积极配合处理。</p>
+        </div>
+        <!-- 个人信息 -->
+        <div class="info">
+            <p>网站负责人微信: <span>Seeknothing_TY</span></p>
+            <p>网站负责人QQ: <span>2542479539</span></p>
+            <p class="business-scope">经营范围: <span>一般项目：网络技术服务；技术服务、技术开发、技术咨询、技术交流、技术转让、技术推广；计算机系统服务；互联网销售（除销售需要许可的商品）；日用品销售；专业设计服务；网络设备销售；计算机及办公设备维修；计算机及通讯设备租赁；计算机软硬件及辅助设备零售；软件外包服务；软件销售；平面设计。（除依法须经批准的项目外，凭营业执照依法自主开展经营活动）</span></p>
+            <p>备案号: <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">晋ICP备2024049010号-2</a></p>
+        </div>
+    </div>
+          <script>
+        // 显示当前域名
+        const domainMessage = document.getElementById('domain-message');
+        const fullDomain = window.location.hostname;
+        document.getElementById('current-domain').textContent = fullDomain;
+
+        // 动态切换备案号
+        const beianElement = document.querySelector('.info a');
+        const beianNumbers = {
+            // 晋ICP系列
+            'sheihe.com': '晋ICP备2024049010号-1',
+            'kuhen.cn': '晋ICP备2024049010号-2',
+            'kxi.cc': '晋ICP备2024049010号-3',
+            'bybk.cc': '晋ICP备2024049010号-4',
+            'pvq.cc': '晋ICP备2024049010号-5',
+            'vvx.me': '晋ICP备2024049010号-6',
+            'webslide.cn': '晋ICP备2024049010号-7',
+            
+            // 浙ICP系列
+            'vma.cc': '浙ICP备2024068645号-1',
+            'whiteyun.com': '浙ICP备2024068645号-2',
+             'whiteyuncom.github.io': '浙ICP备2024068645号-2',
+            'byboke.com': '浙ICP备2024068645号-3'
+        };
+
+        // 提取主域名（支持多级子域名）
+        function extractMainDomain(domain) {
+            const parts = domain.split('.');
+            if (parts.length > 2) {
+                return `${parts[parts.length - 2]}.${parts[parts.length - 1]}`;
+            }
+            return domain;
+        }
+
+        // 根据主域名更新备案号
+        const mainDomain = extractMainDomain(fullDomain);
+        let beianNumber = beianNumbers[mainDomain] || '未知备案号';
+        beianElement.textContent = beianNumber;
+
+        // 根据备案号主号设置页面标题
+        const beianMain = beianNumber.split('-')[0];
+        if (beianMain === '浙ICP备2024068645号') {
+            document.title = '掷元网络科技';
+        } else if (beianMain === '晋ICP备2024049010号') {
+            document.title = '卓星网络科技';
+        }
+    </script>
+
+</body>
+</html>
